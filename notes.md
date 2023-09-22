@@ -18,8 +18,8 @@ git commit
 This [link](https://github.com/webprogramming260/.github/blob/main/profile/essentials/gitHub/gitHub.md) takes you to some more commands and explanations/examples of ```git commands``` 
 
 
-##Creating My Web Server
-##My public IP address
+## Creating My Web Server
+### My public IP address
 http://52.21.167.206
 
 **Command to SSH into my Web Server**
