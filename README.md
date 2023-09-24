@@ -29,17 +29,20 @@ Have you ever been enjoying a film, taking in the gorgeous visuals, and wondered
 * Archiving of other users' uploaded links to personal archive through persistent storage
 * Ability of admin to block/delete certain chats
 
-###Technologies
+### Technologies
 * HTML - Correctly use HTML to give structure to my application. At the moment I'm planning on using 4 different HTML pages
   * A home page
   * A user's profile page
   * Uploading link page
   * Group chat page  
 * CSS - I will use CSS to give style to my HTML pages through different use of colors, borders, and visuals. 
-* JavaScript - Will provide login code along with 
-* Service -
+* JavaScript - Will provide login code along with displaying group chat input of others as well as the user. 
+* Service - Backend service for:
+ *  Login
+ *  uploading footage links with description
+ *  searching archive for footage links
 * DB -
 * Login -
-* WebSocket -
+* WebSocket - Users using group chat will see other users input broadcast into the chat
 * React - 
 
