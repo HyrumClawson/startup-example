@@ -30,9 +30,16 @@ Have you ever been enjoying a film, taking in the gorgeous visuals, and wondered
 * Ability of admin to block/delete certain chats
 
 ###Technologies
-* HTML -
-* CSS -
-* JavaScript -
+* HTML - Correctly use HTML to give structure to my application. At the moment I'm planning on using 4 different HTML pages
+  * A home page
+  * A user's profile page
+  * Uploading link page
+  * Group chat page  
+* CSS - I will use CSS to give style to my HTML pages through different use of colors, borders, and visuals. 
+* JavaScript - Will provide login code along with 
 * Service -
-* 
+* DB -
+* Login -
+* WebSocket -
+* React - 
 
