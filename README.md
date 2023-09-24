@@ -21,4 +21,12 @@ Have you ever been enjoying a film, taking in the gorgeous visuals, and wondered
 
 ![Adobe Scan Sep 23, 2023 (1).pdf](https://github.com/HyrumClawson/startup-example/files/12707769/Adobe.Scan.Sep.23.2023.1.pdf)
 
+### Key Features
+* Creation of personal accounts
+* Secure login to account through https
+* Ability to upload footage links with text description
+* Chatting on different film ideas
+* Archiving of other users' uploaded links to personal archive through persistent storage
+* Ability of admin to block/delete certain chats
+
 
