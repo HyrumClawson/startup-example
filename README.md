@@ -38,11 +38,11 @@ Have you ever been enjoying a film, taking in the gorgeous visuals, and wondered
 * CSS - I will use CSS to give style to my HTML pages through different use of colors, borders, and visuals. 
 * JavaScript - Will provide login code along with displaying group chat input of others as well as the user. 
 * Service - Backend service for:
- *  Login
- *  uploading footage links with description
- *  searching archive for footage links
-* DB -
-* Login -
-* WebSocket - Users using group chat will see other users input broadcast into the chat
-* React - 
+  *  Login
+  *  uploading footage links with description
+  *  searching archive for footage links
+* DB - stores user's footage links, login information, and chat responses
+* Login - will allow user to access their account and their stored information. Information will not be stored unless the user has an account. 
+* WebSocket - Users using group chat will see other users' input broadcast into the chat
+* React - All of this will operate within the React web framework
 
