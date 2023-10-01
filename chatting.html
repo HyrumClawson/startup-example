@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatting</title>
+    <link rel="icon" href="favicon.ico" />
+  </head>
+  <body>
+    <header>
+      <h1>FilmDefine<sup>&reg;</sup></h1>
+
+      <nav>
+        <menu>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="upload.html">Upload</a></li>
+          <li><a href="about.html">About</a></li>
+        </menu>
+      </nav>
+
+      <hr />
+    </header>
+
+    <main>
+      <h1>
+      <label for="ChatTopics">Choose a Chat Topic:</label> 
+    <select name="ChatTopics" id="ChatTopics"> 
+        <option value="favoriteFilms">Favorite Films</option> 
+        <option value="directors">Best Directors</option> 
+        <option value="genres">Favorite Genres</option> 
+    </select>
+    </h1>
+    <dv>
+  
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Message</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Jim</td>
+            <td>Hmmm I think that Jeanne Dielman is kind of overrated </td>
+            <td>May 20, 2021</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Annie</td>
+            <td>Jeanne Dielman is my favorite film</td>
+            <td>June 2, 2021</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Samantha</td>
+            <td>What is your favorite movie</td>
+            <td>July 3, 2020</td>
+          </tr>
+        </tbody>
+      </table>
+      </dv>
+      <dv>
+        <h2>
+        <form method="get" action="chatting.html">
+
+          <label for="chattopic">Start A New Chat Topic</label>
+          <input type="text" id="chattopic" name="chattopic" placeholder ="New Chat Topic"/>
+          <button type="submit">Start</button>
+  
+          
+        </form>
+        </h2>
+
+      </dv>
+
+
+    </main>
+
+    <footer>
+      <hr />
+      <span class="text-reset">Author Name(s)</span>
+      <br />
+      <a href="https://github.com/HyrumClawson/startup-html.git">myGitHub</a>
+    </footer>
+  </body>
+</html>
