@@ -48,3 +48,15 @@ Have you ever been enjoying a film, taking in the gorgeous visuals, and wondered
 * WebSocket - Users using group chat will see other users' input broadcast into the chat
 * React - All of this will operate within the React web framework
 
+
+## HTML Deliverable
+
+### Accomplished So Far
+
+* Index.html - added the title of my website to the top. Links to the different pages, and a place for the user to login so they can go to their profile
+* about.html - has description of my website's functionalities and an image of classic hollywood era film "Casablanca" which is just a placeholder image for the moment. Will change the img and the quote every time page is reloaded randomly
+* chatting.html - given the basic layout in simple format as to how chats will be used and selected. Also included a place in which to create a new chat topic
+* profile.html - created a place where after either logging in or creating an account the user will be directed to their profile page. This includes links to the uploading page and the chatting page which only people with an account can use. Also has placeholder image where profile pic will be.
+* signup.html - very similar to the login page, but this is where people can create their account. After making an account they will be directed to their newly created profile page.
+* upload.html - this is where users can upload url links to scenes/footage of different filmic concepts as well as input a title and a description. 
+
