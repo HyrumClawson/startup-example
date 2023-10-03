@@ -26,3 +26,21 @@ http://52.21.167.206
 ```
  ssh -i [key pair file] ubuntu@[ip address]
 ```
+
+## Cascading Style Sheets (notes from the github repository)
+* With CSS a web programmer can animate the page, deploy custom fonts, respond to user actions, and dynamically alter the entire layout of the page based on the size of a device and its orientation.
+
+```
+p {
+  font-family: sans-serif;
+  font-size: 2em;
+  color: navy;
+  text-shadow: 3px 3px 1px #cccccc;
+}
+```
+* The selector p selects all paragraph elements in the HTML document. The four specified declarations then: 1) change the font to use a sans-serif font, 2) increase the font size to be twice as big as the default font, 3) change the text color to be navy, and 4) create a gray shadow for the text. The result looks like this.
+
+![image](https://github.com/HyrumClawson/startup-example/assets/144285497/d21d05f1-8657-44d4-b7e6-c3729d90a1a2)
+
+
+
