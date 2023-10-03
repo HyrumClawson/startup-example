@@ -93,6 +93,9 @@ CSS defines everything as boxes. When you apply styles, you are applying them to
 
 By default, the width and height of an element is defined by the width and height of the content box. You can change the box-sizing CSS property from the default value of content-box to border-box in order to redefine the width and height to also include the padding and the border. This often makes it easier to style elements when their visual size matches their actual size.
 
+## CSS Declarations
 
+This [link](https://github.com/webprogramming260/.github/blob/main/profile/css/introduction/introduction.md) 
+takes you to some different declarations within CSS as well as some explanations. 
 
 
