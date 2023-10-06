@@ -130,3 +130,185 @@ p {
 ```
 
 
+## CSS Animation
+
+Using CSS to animate your components is an easy way to make your application feel alive and interactive. You create CSS animations using the animation properties and defining keyframes for what the element should look like at different times in the animation. Let's walk through an example.
+
+We have a paragraph of centered text and we want it to zoom in until its size is 20% of the view height.
+
+```
+p {
+  text-align: center;
+  font-size: 20vh;
+}
+```
+
+To make this happen we specify that we are animating the selected elements by adding the animation-name property with a value of demo. This name refers to the name of the keyframes that we will specify in a minute. The keyframes tell what CSS properites should be applied at different key points in the animation sequence. We also add an animation-duration property in order to specify that the animation should last for three seconds.
+
+```
+p {
+  text-align: center;
+  font-size: 20vh;
+
+  animation-name: demo;
+  animation-duration: 3s;
+}
+```
+Now we are ready to create the keyframes. We don't have to define what happens at every millisecond of the animation. Instead we only need to define the key points, and CSS will generate a smooth transition to move from one keyframe to another. In our case we simply want to start with text that is invisible and have it zoom into the full final size. We can do this with two frames that are designated with the keywords from and to.
+
+```
+@keyframes demo {
+  from {
+    font-size: 0vh;
+  }
+
+  to {
+    font-size: 20vh;
+  }
+}
+```
+That's everything we need to do. However, let's make one more addition. It would look better if towards the end, the paragraph bounced out a little bigger than its final size. We can accommodate that by adding another key frame that happens 95 percent through the animation.
+
+```
+@keyframes demo {
+  from {
+    font-size: 0vh;
+  }
+
+  95% {
+    font-size: 21vh;
+  }
+
+  to {
+    font-size: 20vh;
+  }
+}
+```
+
+Animation is not just for pushing buttons or making text float around. Here is an example of animating a watch using only HTML and CSS.
+
+![image](https://github.com/HyrumClawson/startup-example/assets/144285497/d8e52ebe-15f0-4484-81b6-9e1a8faefa35)
+
+
+## Responsive Design
+
+Modern web applications are expected to run well on a large variety of computing devices
+
+This ability to reconfigure the interface so the application accommodates and takes advantage of the screen's size and orientation is called responsive design.
+
+Much of HTML and CSS is already fluid due to the fact that it responds to the browser window being resized. For example a paragraph element will resize when the browser window is resized. However, the following features can completely change the layout of the application based on the device's size and orientation.
+
+
+We can demonstrate the different CSS display property values with the following HTML that contains a bunch of div elements. By default div elements have a display property value of block.
+
+```
+<div class="none">None</div>
+<div class="block">Block</div>
+<div class="inline">Inline1</div>
+<div class="inline">Inline2</div>
+<div class="flex">
+  <div>FlexA</div>
+  <div>FlexB</div>
+  <div>FlexC</div>
+  <div>FlexD</div>
+</div>
+<div class="grid">
+  <div>GridA</div>
+  <div>GridB</div>
+  <div>GridC</div>
+  <div>GridD</div>
+</div>
+```
+![image](https://github.com/HyrumClawson/startup-example/assets/144285497/ab254947-4ec1-4ba6-b05c-1993bcfa8009)
+
+If we modify the display property associated with each element with the following CSS, then we get a totally different rendering.
+
+```
+.none {
+  display: none;
+}
+
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+```
+![image](https://github.com/HyrumClawson/startup-example/assets/144285497/671d1045-2f6c-411b-b820-e60f64fffbe1)
+
+
+### Viewport Meta Tag
+
+Mobiile devices are used to browse websites. However, the websites were optimized for desktop displays and not little tiny mobile screens. To solve this mobile browsers automatically started scaling the website so that it looked better on a small screen. Unfortunately, as web applications started being responsive to the screen size, the mobile browser's scaling got in the way. The solution is to include a meta tag in the head element of all your HTML pages. This tells the browser to not scale the page.
+
+```
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+```
+
+### FLoat
+
+The float css property moves an element to the left or right of its container element and allows inline elements to wrap around it. For example, if we had an aside element followed by a large paragraph of text, we could create the following CSS rule in order to cause the text to wrap around the aside.
+
+```
+aside {
+  float: right;
+  padding: 3em;
+  margin: 0.5em;
+  border: black solid thin;
+}
+```
+![image](https://github.com/HyrumClawson/startup-example/assets/144285497/8574ec92-e8f8-4d7a-a397-4315373a8836)
+
+### Media Queries
+
+One of the main CSS features for creating responsive applications is the @media selector. This selector dynamically detects the size and orientation of the device and applies CSS rules to represent the structure of the HTML in a way that accommodates the change.
+
+We can use the @media selector to tell us which side of the screen (technically the viewport) is the longest. A media query takes one or more predicates separated by boolean operators. In our case we simply want to know if the screen is oriented in portrait mode (short side on top) or not. If it is then we transform all of our div elements by rotating them 270 degrees.
+
+```
+@media (orientation: portrait) {
+  div {
+    transform: rotate(270deg);
+  }
+}
+```
+
+![image](https://github.com/HyrumClawson/startup-example/assets/144285497/1112378c-0506-4bac-9b4b-8a13ca6b587c)
+
+You can also use media queries to make entire pieces of your application disappear, or move to a different location. For example, if we had an aside that was helpful when the screen is wide, but took up too much room when the screen got narrow, we could use the following media query to make it disappear.
+
+```
+@media (orientation: portrait) {
+  aside {
+    display: none;
+  }
+}
+```
+![image](https://github.com/HyrumClawson/startup-example/assets/144285497/99c92423-0c16-4c89-b618-ce6e8dfda76b)
+
+
+### Grid and Flexbox
+
+The final two responsive technologies that we want to discuss are Grid and Flexbox. These are both CSS display modes that automatically respond to screen sizes to position and resize their child elements. We will discuss each of these in detail in the following instruction.
+
+
+
+
+
+
+
+
+
+
