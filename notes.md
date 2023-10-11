@@ -337,6 +337,53 @@ We finish off the grid configuration by saying that we want all rows to be exact
 ![image](https://github.com/HyrumClawson/startup-example/assets/144285497/d14d44fb-f9c8-4381-8abb-683e669d3c1b)
 
 
+## JavaScript Introduction
+
+In this instruction we will cover the basic parts of the language necessary to create a reasonable website. There are many features of the language that will not be discussed, and you should take time to dig into the corners of the language as time allows. The more effectively you understand JavaScript, the better web programmer you will be.
+
+
+<img width="620" alt="Screen Shot 2023-10-10 at 10 02 55 PM" src="https://github.com/HyrumClawson/startup-example/assets/144285497/88f7a4c6-e9cb-4977-8a32-0c212f5d591a">
+
+### Getting Started
+
+Let's start with a basic example. The following JavaScript will concatenate three strings together and then throw away the result. Not very useful, but JavaScript doesn't complain much.
+
+```
+'Hello' + ' ' + 'world';
+```
+Only slightly more complex is to call a function with the result of our concatenated string. In this case we call the JavaScript runtime's built in function console.log to output the string to the debugger console.
+
+```
+console.log('Hello' + ' ' + 'world');
+// OUTPUT: Hello world
+```
+You can also write your own functions.
+
+```
+function join(a, b) {
+  return a + ' ' + b;
+}
+
+console.log(join('Hello', 'world'));
+// OUTPUT: Hello world
+```
+### Comments
+
+* Just like in c++ same style. // and /* */
+
+### Code Delimiters 
+While not technically required in most cases, it is considered good form to end JavaScript statements with a semicolon (;). Code blocks, and their resulting scope, are defined with curly braces ({ }).
+
+### Playgrounds
+
+Before we go any further we need a way for you to write and run JavaScript yourself. There are two easy ways to do this.
+
+1. Use an online sandbox like CodePen. With CodePen you can write whatever JavaScript you would like and immediately see the results. Make sure you display the CodePen's Console window if your JavaScript is using the console.log function.
+2. Use your browser's debugger. For example, if you open Chrome and press F12 the debugger will display. Select the Console menu option. This will display a JavaScript interpreter where you can write and execute your code.
+
+
+
+
 
 
 
