@@ -1,0 +1,35 @@
+menu {
+    color: pink;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 2%;
+}
+
+header {
+    color: pink;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+header {
+    background-color: black;
+}
+
+main {
+    background-color: #34495E;
+    color: white;
+
+}
+
+h1 {
+    padding-top: 10%;
+}
+
+.t1 {
+    color: #B7950B;
+}
+
+.table {
+    background-color: gray;
+    border-radius: 3px;
+    margin: 10px;
+    align-items: center;
+}

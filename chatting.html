@@ -1,31 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="chatting.css" />
+  <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chatting</title>
     <link rel="icon" href="favicon.ico" />
   </head>
-  <body>
-    <header>
-      <h1>FilmDefine<sup>&reg;</sup></h1>
-
-      <nav>
-        <menu>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="upload.html">Upload</a></li>
-          <li><a href="about.html">About</a></li>
+  <body class="bg-dark text-light">
+    <header class="container-fluid fixed-top bg-dark">
+      
+      <!-- Navigation elements -->
+      <nav class="navbar  navbar-dark">
+        <a class="navbar-brand title" href="#">FilmDefined<sup>&reg;</sup></a>
+        <!-- Menu is a semantic alternative to <ul> that represents an interaction -->
+        <menu class="navbar-nav">
+          <li class ="nav-item">
+            <a class="nav-link active" href="index.html">Home</a>
+          </li>
+          <li class ="nav-item">
+            <a class="nav-link active" href="upload.html">Upload</a>
+          </li>
+          <li class ="nav-item">
+            <a class="nav-link active" href="about.html">About</a>
+          </li>
         </menu>
       </nav>
-
-      <hr />
     </header>
 
     <main>
-      <h1>
-      <label for="ChatTopics">Choose a Chat Topic:</label> 
+      <h1 >
+      <label for="ChatTopics">Choose a Chat Topic</label> 
     <select name="ChatTopics" id="ChatTopics"> 
-        <option value="favoriteFilms">Favorite Films</option> 
+        <option  value="favoriteFilms" class = "t1">Favorite Films</option> 
         <option value="directors">Best Directors</option> 
         <option value="genres">Favorite Genres</option> 
     </select>
@@ -35,27 +49,23 @@
       <table>
         <thead>
           <tr>
-            <th>#</th>
-            <th>Name</th>
-            <th>Message</th>
-            <th>Date</th>
+            <th class = "t1">Name</th>
+            <th class = "t1">Message</th>
+            <th class = "t1">Date</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
             <td>Jim</td>
             <td>Hmmm I think that Jeanne Dielman is kind of overrated </td>
             <td>May 20, 2021</td>
           </tr>
           <tr>
-            <td>2</td>
             <td>Annie</td>
             <td>Jeanne Dielman is my favorite film</td>
             <td>June 2, 2021</td>
           </tr>
           <tr>
-            <td>3</td>
             <td>Samantha</td>
             <td>What is your favorite movie</td>
             <td>July 3, 2020</td>
@@ -64,27 +74,27 @@
       </table>
       </dv>
       <dv>
-        <h2>
+        
         <form method="get" action="chatting.html">
 
           <label for="chattopic">Start A New Chat Topic</label>
           <input type="text" id="chattopic" name="chattopic" placeholder ="New Chat Topic"/>
-          <button type="submit">Start</button>
+          <button class="btn btn-primary" type="submit">Start</button>
   
           
         </form>
-        </h2>
+        
 
       </dv>
 
 
     </main>
 
-    <footer>
-      <hr />
-      <span class="text-reset">Author Name(s)</span>
-      <br />
-      <a href="https://github.com/HyrumClawson/startup-example.git">myGitHub</a>
+    <footer class="bg-dark text-white-50">
+      <div class="container-fluid">
+        <span class="text-reset">Author Name(s)</span>
+        <a class="text-reset" href="https://github.com/HyrumClawson/startup-example.git">myGitHub</a>
+      </div>
     </footer>
   </body>
 </html>
