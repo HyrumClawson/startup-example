@@ -58,5 +58,13 @@ Have you ever been enjoying a film, taking in the gorgeous visuals, and wondered
 * chatting.html - given the basic layout in simple format as to how chats will be used and selected. Also included a place in which to create a new chat topic
 * profile.html - created a place where after either logging in or creating an account the user will be directed to their profile page. This includes links to the uploading page and the chatting page which only people with an account can use. Also has placeholder image where profile pic will be.
 * signup.html - very similar to the login page, but this is where people can create their account. After making an account they will be directed to their newly created profile page.
-* upload.html - this is where users can upload url links to scenes/footage of different filmic concepts as well as input a title and a description. 
+* upload.html - this is where users can upload url links to scenes/footage of different filmic concepts as well as input a title and a description.
+
+## CSS Deliverable
+
+### Accomplished So Far
+
+* main.css - applied the main.css to the different html pages of my web application to give it padding, margins, and flex.
+* bootstrap - used various bootstrap css attributes throughout the web application.
+* Each html page got a css page that often times had very simplistic css to give various design to the pages.
 
