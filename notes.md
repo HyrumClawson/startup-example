@@ -1316,5 +1316,283 @@ console.log(e.print());
 ```
 
 
+## Scope : JavaScript
+
+Understanding JavaScript scope is essential for making your programs run as you expect. Scope is defined as the variables that are visible in the current context of execution. JavaScript has four different types of scope:
+
+Global - Visible to all code
+Module - Visible to all code running in a module
+Function - Visible within a function
+Block - Visible within a block of code delimited by curly braces
+
+### Var
+
+Initially JavaScript used the keyword var to declare a variable. The problem with var, unlike const or let, is that it ignores block scope. Variables declared with var are always logically hoisted to the top of the function. For example, the following code shows the same variable name being used within different enclosing scopes. However, because var ignores block scope the for loop is simply assigning a new value to x rather than declaring a new variable that has the same name.
+```
+var x = 10;
+console.log('start', x);
+
+for (var x = 0; x < 1; x++) {
+  console.log('middle', x);
+}
+
+console.log('end', x);
+
+// OUTPUT: start 10
+//         middle 0
+//         end 1
+```
+There are few cases where it makes sense to use var. It is strongly suggested that you only use const and let unless you fully understand why you are using var.
+
+### This
+
+The keyword this represents a variable that points to an object that contains the context within the scope of the currently executing line of code. The this variable is automatically declared and you can reference this anywhere in a JavaScript program. Because the value of this depends upon the context in which it is referenced, there are three different context that this can refer to:
+
+Global - When this is referenced outside a function or object it refers to the globalThis object. The globalThis object represents the context for runtime environment. For example, when running in a browser, globalThis refers to the browser's window object.
+Function - When this is referenced in a function it refers to the object that owns the function. That is either an object you defined or globalThis if the function is defined outside of an object. Note that when running in JavaScript strict mode, a global function's this variable is undefined instead of globalThis.
+Object - When this is referenced in an object it refers to the object.
+
+```
+'use strict';
+
+// global scope
+console.log('global:', this);
+console.log('globalThis:', globalThis);
+
+// function scope for a global function
+function globalFunc() {
+  console.log('globalFunctionThis:', this);
+}
+globalFunc();
+
+// object scope
+class ScopeTest {
+  constructor() {
+    console.log('objectThis:', this);
+  }
+
+  // function scope for an object function
+  objectFunc() {
+    console.log('objectFunctionThis:', this);
+  }
+}
+
+new ScopeTest().objectFunc();
+```
+Running the above code in a browser results in the following.
+
+```
+global: Window
+globalThis: Window
+globalFunctionThis: undefined
+objectThis: ScopeTest
+objectFunctionThis: ScopeTest
+```
+Note that if we were not using JavaScript strict mode then globalFunctionThis would refer to Window.
+
+### Closure
+
+A closure is defined as a function and its surrounding state. That means whatever variables are accessible when a function is created are available inside that function. This holds true even if you pass the function outside of the scope of its original creation.
+
+Here is an example of a function that is created as part of an object. That means that function has access to the object's this pointer.
+
+```
+globalThis.x = 'global';
+
+const obj = {
+  x: 'object',
+  f: function () {
+    console.log(this.x);
+  },
+};
+
+obj.f();
+// OUTPUT: object
+```
+Arrow functions are a bit different because they inherit the this pointer of their creation context. So if we change our previous example to return an arrow function, then the this pointer at the time of creation will be globalThis.
+```
+globalThis.x = 'global';
+
+const obj = {
+  x: 'object',
+  f: () => console.log(this.x),
+};
+
+obj.f();
+// OUTPUT: global
+```
+However, if we make function in our object that returns an arrow function, then the this pointer will be the object's this pointer since that was the active context at the time the arrow function was created.
+```
+globalThis.x = 'global';
+
+const obj = {
+  x: 'object',
+  make: function () {
+    return () => console.log(this.x);
+  },
+};
+
+const f = obj.make();
+f();
+// OUTPUT: object
+```
+
+## JavaScript Modules
+
+JavaScript modules allow for the partitioning and sharing of code. Initially JavaScript had no support for modules. Node.js, a server side JavaScript execution application, introduced the concept of modules in order to support the importing of packages of JavaScript from third party providers.
+
+JavaScript got full module support with ES6, and they have become the standard module representation as browser support for ES modules is now almost universal.
+
+In order to differentiate between the two implementations, Node.js modules are called CommonJS modules, and JavaScript modules are called ES modules. For this discussion, we will focus only on ES modules.
+
+Because modules create a file-based scope for the code they represent, you must explicitly export the objects from one file and then import them into another file. For example, here is a simple module that exports a function that displays an alert.
+
+** alert.js ** 
+```
+export function alertDisplay(msg) {
+  alert(msg);
+}
+```
+You can import the module's exported function into another module using the import keyword.
+** main.js **
+```
+import { alertDisplay } from './alert.js';
+
+alertDisplay('called from main.js');
+```
+### ES Modules in the Browser
+
+When you use ES modules in the browser via HTML script references, things get a little complicated. The key thing to understand is that modules can only be called from other modules. You cannot access JavaScript contained in a module from the global scope that your non-module JavaScript is executing in.
+
+From your HTML, you can specify that you are using an ES module by including a type attribute with the value of module in the script element. You can then import and use other modules. This is shown in the example below.
+
+** index.html **
+```
+<script type="module">
+  import { alertDisplay } from './alert.js';
+  alertDisplay('module loaded');
+</script>
+```
+If we want to use a module in the global scope that our HTML or other non-module JavaScript is executing in, then we must leak it into the global scope. We do this by either attaching an event handler or explicitly adding a function to the global window object. In the example below, we expose the alertDisplay imported module function by attaching it to the global JavaScript window object so that it can then be called from the button onclick handler. We also expose the module function by attaching a keypress event.
+** index.html **
+```
+<html>
+  <body>
+    <script type="module">
+      import { alertDisplay } from './alert.js';
+      window.btnClick = alertDisplay;
+
+      document.body.addEventListener('keypress', function (event) {
+        alertDisplay('Key pressed');
+      });
+    </script>
+    <button onclick="btnClick('button clicked')">Press me</button>
+  </body>
+</html>
+```
+Now, if the button is pushed or a key is pressed our ES module function will be called.
+
+### Modules with web frameworks
+
+Fortunately, when you use a web framework bundler, discussed in later instruction, to generate your web application distribution code, you usually don't have to worry about differentiating between global scope and ES module scope. The bundler will inject all the necessary syntax to connect your HTML to your modules. Historically, this was done by removing the modules and placing all of the JavaScript in a namespaced global partition. Now that ES Modules are supported on most browsers, the bundler will expose the ES module directly.
+
+Because of the complex history of modules they can be a confusing topic, but it is well worth the time to understand how they work as they are a core piece of a web programmer's toolkit.
+
+## Document Object Model
+
+The Document Object Model (DOM) is an object representation of the HTML elements that the browser uses to render the display. The browser also exposes the DOM to external code so that you can write programs that dynamically manipulate the HTML.
+
+The browser provides access to the DOM through a global variable name document that points to the root element of the DOM. If you open the browser's debugger console window and type the variable name document you will see the DOM for the document the browser is currently rendering.
+```
+> document
+
+<html lang="en">
+  <body>
+    <p>text1 <span>text2</span></p>
+    <p>text3</p>
+  </body>
+</html>
+```
+```
+p {
+  color: red;
+}
+```
+For everything in an HTML document there is a node in the DOM. This includes elements, attributes, text, comments, and whitespace. All of these nodes form a big tree, with the document node at the top.
+<img width="602" alt="Screen Shot 2023-10-25 at 3 15 18 PM" src="https://github.com/HyrumClawson/startup-example/assets/144285497/cee15b97-2c21-42dc-906f-7eed8aec73ba">
+### Accessing the DOM
+Every element in an HTML document implements the DOM Element interface, which is derived from the DOM Node interface. The DOM Element Interface provides the means for iterating child elements, accessing the parent element, and manipulating the element's attributes. From your JavaScript code, you can start with the document variable and walk through the every element in the tree.
+```
+function displayElement(el) {
+  console.log(el.tagName);
+  for (const child of el.children) {
+    displayElement(child);
+  }
+}
+
+displayElement(document);
+```
+You can provide a CSS selector to the querySelectorAll function in order to select elements from the document. The textContent property contains all of the element's text. You can even access a textual representation of an element's HTML content with the innerHTML property.
+```
+const listElements = document.querySelectorAll('p');
+for (const el of listElements) {
+  console.log(el.textContent);
+}
+```
+### Modifying the DOM
+
+The DOM supports the ability to insert, modify, or delete the elements in the DOM. To create a new element you first create the element on the DOM document. You then insert the new element into the DOM tree by appending it to an existing element in the tree.
+```
+function insertChild(parentSelector, text) {
+  const newChild = document.createElement('div');
+  newChild.textContent = text;
+
+  const parentElement = document.querySelector(parentSelector);
+  parentElement.appendChild(newChild);
+}
+
+insertChild('#courses', 'new course');
+```
+To delete elements call the removeChild function on the parent element.
+```
+function deleteElement(elementSelector) {
+  const el = document.querySelector(elementSelector);
+  el.parentElement.removeChild(el);
+}
+
+deleteElement('#courses div');
+```
+### Injecting HTML
+The DOM also allows you to inject entire blocks of HTML into an element. The following code finds the first div element in the DOM and replaces all the HTML it contains.
+```
+const el = document.querySelector('div');
+el.innerHTML = '<div class="injected"><b>Hello</b>!</div>';
+```
+However, directly injecting HTML as a block of text is a common attack vector for hackers. If an untrusted party can inject JavaScript anywhere in your application then that JavaScript can represent itself as the current user of the application. The attacker can then make requests for sensitive data, monitor activity, and steal credentials. The example below shows how the img element can be used to launch an attack as soon as the page is loaded.
+
+```
+<img src="bogus.png" onerror="console.log('All your base are belong to us')" />
+```
+If you are injecting HTML, make sure that it cannot be manipulated by a user. Common injection paths include HTML input controls, URL parameters, and HTTP headers. Either sanitize any HTML that contains variables, or simply use DOM manipulation functions instead of using innerHTML.
+
+### Event Listeners
+
+All DOM elements support the ability to attach a function that gets called when an event occurs on the element. These functions are called event listeners. Here is an example of an event listener that gets called when an element gets clicked.
+```
+const submitDataEl = document.querySelector('#submitData');
+submitDataEl.addEventListener('click', function (event) {
+  console.log(event.type);
+});
+```
+There are lots of possible events that you can add a listener to. This includes things like mouse, keyboard, scrolling, animation, video, audio, WebSocket, and clipboard events. You can see the full list on MDN. Here are a few of the more commonly used events.
+
+<img width="336" alt="Screen Shot 2023-10-25 at 3 28 01 PM" src="https://github.com/HyrumClawson/startup-example/assets/144285497/7c9ec219-da3b-446e-b966-453590d25d33">
+
+You can also add event listeners directly in the HTML. For example, here is a onclick handler that is attached to a button.
+```
+<button onclick='alert("clicked")'>click me</button>
+```
+
+
 
 
