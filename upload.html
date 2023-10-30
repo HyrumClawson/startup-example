@@ -28,19 +28,19 @@
             <a class="nav-link active" href="index.html">Home</a>
           </li>
           <li class ="nav-item">
-            <a class="nav-link active" href="about.html">About Us</a>
+            <a class="nav-link active" href="profile.html">Profile</a>
           </li>
           <li class ="nav-item">
-            <a class="nav-link active" href="signup.html">Sign-Up</a>
+            <a class="nav-link active" href="chatting.html">Chat</a>
           </li>
         </menu>
       </nav>
     </header>
 
-    <main>
+    <main id = "main">
       <h2>Upload Film Footage URL</h2>
 
-      <form method="get" action="upload.html">
+      <div>
         <label for="url">URL of Footage</label>
         <input type="text" id="url" placeholder="URL Here" />
         <br>
@@ -50,18 +50,26 @@
         <label for="description">Description</label>
         <input type="text" id="description" placeholder="Describe the Footage" />
         <br>
-        <button type="submit" class="btn btn-primary">Upload</button>
+        <button type="submit" class="btn btn-primary" onclick = "upload()">Upload</button>
+      </div>
+      <div>
+        <button class="btn btn-primary" onclick="generateRepository()">Look At Repository</button>
+      </div>
 
-        
-      </form>
+      <div id="output"></div>
      
     </main>
+
+    
 
     <footer class="bg-dark text-white-50">
       <div class="container-fluid">
         <span class="text-reset">Author Name(s)</span>
         <a class="text-reset" href="https://github.com/HyrumClawson/startup-example.git">myGitHub</a>
       </div>
+    
     </footer>
   </body>
+  <script src="upload.js"></script>
+
 </html>
