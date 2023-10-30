@@ -68,3 +68,15 @@ Have you ever been enjoying a film, taking in the gorgeous visuals, and wondered
 * bootstrap - used various bootstrap css attributes throughout the web application.
 * Each html page got a css page that often times had very simplistic css to give various design to the pages.
 
+
+## JavaScript Deliverable
+
+### Accomplished So Far
+
+* First off can I just say what an absolute pain it was typing up all this code, and debugging, and testing. Howver, after all of that I've now got some very rudimentary functions for your web browsing pleasure. These include...
+* login.js/profile.js - The ability to "login" to a profile. Very simple. You input your username and your password (which I'll incorporate later) and then you are directed to your "profile" where your username will be displayed thus signifying that you are on your profile page. How exciting. 
+* upload.js - the ability to upload a url link to a repository stored on the local storage. You need to type in the link of the scene you want to upload followed by a title, and then a description. If you then click the "look at repository" button the DOM will be modified to show links that others have uploaded to the website that when clicked will take you to the footage if the url was input correctly.
+* chatting.js - the ability to write some messages into the various different chats that are stored underneath the "choose a chat topic" dropdown menu list. You can even start your own chat **gasp** if you input some chat title into the "start a new chat topic" block. In order to see the messages that are in the chat for the topic you need to select the topic from the dropdown menu and then the DOM will be manipulated to see all the messages that have been put into that particular chat and even the person who wrote the message. I'll actually add the date code at a later time though don't you fret.
+* Just to note when you write a message into a particular chat and press the "send" button the page will reload and the chat will disappear for a time, but don't you worry! Just simply select the chat topic that you wrote your message into and you'll see your message proudly displayed there waiting for others to make rude and deprecating comments on. I'll iron it out later so that the messages will continue to display even when you send your message into it.
+* And yeah hopefully that'll do the trick for satisfying everything. 
+
