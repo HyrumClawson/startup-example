@@ -1905,6 +1905,164 @@ With the browser paused in the debugger you can move your mouse cursor over a va
 This gives you complete control to inspect what the JavaScript code is doing and experiment with possible alternative directions for the code. Take some time to poke around in the debugger. Learning how to exploit its functionality will make you a much better web developer.
 
 
+## URL
+
+The Uniform Resource Locator (URL) represents the location of a web resource. A web resource can be anything, such as a web page, font, image, video stream, database record, or JSON object. It can also be completely ephemeral, such as a visitation counter, or gaming session.
+
+Looking at the different parts of a URL is a good way to understand what it represents. Here is an example URL that represents the summary of accepted CS 260 BYU students that is accessible using secure HTTP.
+
+```
+https://byu.edu:443/cs/260/student?filter=accepted#summary
+```
+The URL syntax uses the following convention. Notice the delimiting punctuation between the parts of the URL. Most parts of the URL are optional. The only ones that are required are the scheme, and the domain name.
+```
+<scheme>://<domain name>:<port>/<path>?<parameters>#<anchor>
+```
+<img width="620" alt="Screen Shot 2023-11-06 at 3 41 03 PM" src="https://github.com/HyrumClawson/startup-example/assets/144285497/0adb0815-81d3-46c0-b1aa-614dcf96f775">
+
+<img width="622" alt="Screen Shot 2023-11-06 at 3 41 54 PM" src="https://github.com/HyrumClawson/startup-example/assets/144285497/7365ccb8-1cc3-4a0c-a434-b7135b7616e0">
+
+<img width="619" alt="Screen Shot 2023-11-06 at 3 42 45 PM" src="https://github.com/HyrumClawson/startup-example/assets/144285497/5da5527c-c68a-4d55-b54b-06f5b2a778b2">
+
+Technically you can also provide a user name and password before the domain name. This was used historically to authenticate access, but for security reasons this is deprecated. However, you will still see this convention for URLs that represent database connection strings.
+
+### URL,URN, and URI
+
+You will sometimes hear the use of URN or URI when talking about web resources. A Uniform Resource Name (URN) is a unique resource name that does not specify location information. For example, a book URN might be urn:isbn:10,0765350386. A Uniform Resource Identifier (URI) is a general resource identifier that could refer to either a URL or a URN. With web programming you are almost always talking about URLs and therefore you should not use the more general URI.
+
+## Ports
+
+When you connect to a device on the internet you need both an IP address and a numbered port. Port numbers allow a single device to support multiple protocols (e.g. HTTP, HTTPS, FTP, or SSH) as well as different types of services (e.g. search, document, or authentication). The ports may be exposed externally, or they may only be used internally on the device. For example, the HTTPS port (443) might allow the world to connect, the SSH port (22) might only allow computers at your school, and a service defined port (say 3000) may only allow access to processes running on the device.
+
+The internet governing body, IANA, defines the standard usage for port numbers. Ports from 0 to 1023 represent standard protocols. Generally a web service should avoid these ports unless it is providing the protocol represented by the standard. Ports from 1024 to 49151 represent ports that have been assigned to requesting entities. However, it is very common for these ports to be used by services running internally on a device. Ports from 49152 to 65535 are considered dynamic and are used to create dynamic connections to a device. Here is the link to IANA's registry.
+
+Here is a list of common port numbers that you might come across.
+<img width="619" alt="Screen Shot 2023-11-06 at 3 51 21 PM" src="https://github.com/HyrumClawson/startup-example/assets/144285497/a7216d65-f66d-4887-8ff7-ff8a9e10601e">
+
+### Your ports
+
+As an example of how ports are used we can look at your web server. When you built your web server you externally exposed port 22 so that you could use SSH to open a remote console on the server, port 443 for secure HTTP communication, and port 80 for unsecure HTTP communication.
+<img width="600" alt="Screen Shot 2023-11-06 at 3 53 22 PM" src="https://github.com/HyrumClawson/startup-example/assets/144285497/6cb87cd0-15e5-42cf-9aea-a0f7dc7538a4">
+
+Your web service, Caddy, is listening on ports 80 and 443. When Caddy gets a request on port 80, it automatically redirects the request to port 443 so that a secure connection is used. When Caddy gets a request on port 443 it examines the path provided in the HTTP request (as defined by the URL) and if the path matches a static file, it reads the file off disk and returns it. If the HTTP path matches one of the definitions it has for a gateway service, Caddy makes a connection on that service's port (e.g. 3000 or 4000) and passes the request to the service.
+
+Internally on your web server, you can have as many web services running as you would like. However, you must make sure that each one uses a different port to communicate on. You run your Simon service on port 3000 and therefore cannot use port 3000 for your startup service. Instead you use port 4000 for your startup service. It does not matter what high range port you use. It only matters that you are consistent and that they are only used by one service.
+
+## HTTP
+
+Hypertext Transfer Protocol (HTTP) is how the web talks. When a web browser makes a request to a web server it does it using the HTTP protocol. In previous instruction we discussed how to use HTTP. Now, we will talk about the internals of HTTP. Just like becoming fluent in a foreign language makes a visit to another country more enjoyable, understanding how to speak HTTP helps you communicate effectively when talking on the web.
+
+When a web client (e.g. a web browser) and a web server talk they exchange HTTP requests and responses. The browser will make an HTTP request and the server will generate an HTTP response. You can see the HTTP exchange by using the browser's debugger or by using a console tool like curl. For example, in your console you can use curl to make the following request.
+
+### Request
+
+The HTTP request for the above command would look like the following.
+
+```
+GET /hypertext/WWW/Helping.html HTTP/1.1
+Host: info.cern.ch
+Accept: text/html
+```
+An HTTP request has this general syntax.
+```
+<verb> <url path, parameters, anchor> <version>
+[<header key: value>]*
+[
+
+  <body>
+]
+```
+The first line of the HTTP request contains the verb of the request, followed by the path, parameters, and anchor of the URL, and finally the version of HTTP being used. The following lines are optional headers that are defined by key value pairs. After the headers you have an optional body. The body start is delimited from the headers with two new lines.
+
+In the above example, we are asking to GET a resource found at the path /hypertext/WWW/Helping.html. The version used by the request is HTTP/1.1. This is followed by two headers. The first specifies the requested host (i.e. domain name). The second specifies what type of resources the client will accept. The resource type is always a MIME type as defined by internet governing body IANA. In this case we are asking for HTML.
+
+### Response
+The response to the above request looks like this.
+```
+HTTP/1.1 200 OK
+Date: Tue, 06 Dec 2022 21:54:42 GMT
+Server: Apache
+Last-Modified: Thu, 29 Oct 1992 11:15:20 GMT
+ETag: "5f0-28f29422b8200"
+Accept-Ranges: bytes
+Content-Length: 1520
+Connection: close
+Content-Type: text/html
+
+<TITLE>Helping -- /WWW</TITLE>
+<NEXTID 7>
+<H1>How can I help?</H1>There are lots of ways you can help if you are interested in seeing
+the <A NAME=4 HREF=TheProject.html>web</A> grow and be even more useful...
+```
+An HTTP response has the following syntax.
+```
+<version> <status code> <status string>
+[<header key: value>]*
+[
+
+  <body>
+]
+```
+You can see that the response syntax is similar to the request syntax. The major difference is that the first line represents the version and the status of the response.
+
+Understanding the meaning of the common HTTP verbs, status codes, and headers is important for you to understand, as you will use them in developing a web application. Take some time to internalize the following common values.
+
+### Verbs
+
+There are several verbs that describe what the HTTP request is asking for. The list below only describes the most common ones.
+
+<img width="622" alt="Screen Shot 2023-11-06 at 4 11 18 PM" src="https://github.com/HyrumClawson/startup-example/assets/144285497/50563014-6b3e-4579-9da0-36bf066be926">
+
+
+### Status Codes
+
+It is important that you use the standard HTTP status codes in your HTTP responses so that the client of a request can know how to interpret the response. The codes are partitioned into five blocks.
+
+1xx - Informational.
+2xx - Success.
+3xx - Redirect to some other location, or that the previously cached resource is still valid.
+4xx - Client errors. The request is invalid.
+5xx - Server errors. The request cannot be satisfied due to an error on the server.
+Within those ranges here are some of the more common codes. See the MDN documentation for a full description of status codes.
+<img width="618" alt="Screen Shot 2023-11-06 at 4 12 47 PM" src="https://github.com/HyrumClawson/startup-example/assets/144285497/104c9be6-25d5-4865-b48a-425de87e3579">
+
+<img width="621" alt="Screen Shot 2023-11-06 at 4 13 11 PM" src="https://github.com/HyrumClawson/startup-example/assets/144285497/a0eb8595-79ea-4e05-903d-427e95ba6761">
+
+### Headers
+HTTP headers specify metadata about a request or response. This includes things like how to handle security, caching, data formats, and cookies. Some common headers that you will use include the following.
+<img width="620" alt="Screen Shot 2023-11-06 at 4 14 11 PM" src="https://github.com/HyrumClawson/startup-example/assets/144285497/506be49a-94b3-4517-9c23-d36a81068a7f">
+
+### Body
+
+The format of the body of an HTTP request or response is defined by the Content-Type header. For example, it may be HTML text (text/html), a binary image format (image/png), JSON (application/json), or JavaScript (text/javascript). A client may specify what formats it accepts using the accept header.
+
+### Cookies
+![image](https://github.com/HyrumClawson/startup-example/assets/144285497/665d6934-b35e-4b5c-9f22-559ba30c8bb1)
+
+HTTP itself is stateless. This means that one HTTP request does not know anything about a previous or future request. However, that does not mean that a server or client cannot track state across requests. One common method for tracking state is the cookie. Cookies are generated by a server and passed to the client as an HTTP header.
+
+```
+HTTP/2 200
+Set-Cookie: myAppCookie=tasty; SameSite=Strict; Secure; HttpOnly
+```
+The client then caches the cookie and returns it as an HTTP header back to the server on subsequent requests.
+```
+HTTP/2 200
+Cookie: myAppCookie=tasty
+```
+This allows the server to remember things like the language preference of the user, or the user's authentication credentials. A server can also use cookies to track, and share, everything that a user does. However, there is nothing inherently evil about cookies; the problem comes from web applications that use them as a means to violate a user's privacy or inappropriately monetize their data.
+
+### HTTP Versions
+
+HTTP continually evolves in order to increase performance and support new types of applications. You can read about the evolution of HTTP on MDN.
+<img width="532" alt="Screen Shot 2023-11-06 at 4 21 35 PM" src="https://github.com/HyrumClawson/startup-example/assets/144285497/594c5c20-412c-4135-9558-244ab39fae16">
+
+
+
+
+
+
+
 
 
 
