@@ -12,19 +12,7 @@ let DifferentChats = new Map([
   let chatMap = JSON.stringify(DifferentChats);
     localStorage.setItem("chattopics", chatMap);
 
-//   let userMessage = {
-//     message : "Nothing was written",
-//     contributor : localStorage.getItem("userName"),
 
-//   }
-
-//   DifferentChats.get("genres").push(userMessage)
-
-//document.body.onload = "";
-
-// function anything(){
-//     console.log("it went into anything");
-// }
 
 function AddNewChat(){
     console.log("inside AddNewChat");
