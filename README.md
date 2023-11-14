@@ -78,5 +78,14 @@ Have you ever been enjoying a film, taking in the gorgeous visuals, and wondered
 * upload.js - the ability to upload a url link to a repository stored on the local storage. You need to type in the link of the scene you want to upload followed by a title, and then a description. If you then click the "look at repository" button the DOM will be modified to show links that others have uploaded to the website that when clicked will take you to the footage if the url was input correctly.
 * chatting.js - the ability to write some messages into the various different chats that are stored underneath the "choose a chat topic" dropdown menu list. You can even start your own chat **gasp** if you input some chat title into the "start a new chat topic" block. In order to see the messages that are in the chat for the topic you need to select the topic from the dropdown menu and then the DOM will be manipulated to see all the messages that have been put into that particular chat and even the person who wrote the message. I'll actually add the date code at a later time though don't you fret.
 * Just to note when you write a message into a particular chat and press the "send" button the page will reload and the chat will disappear for a time, but don't you worry! Just simply select the chat topic that you wrote your message into and you'll see your message proudly displayed there waiting for others to make rude and deprecating comments on. I'll iron it out later so that the messages will continue to display even when you send your message into it.
-* And yeah hopefully that'll do the trick for satisfying everything. 
+* And yeah hopefully that'll do the trick for satisfying everything.
+
+## Service Deliverable
+
+### Accomplished so Far
+* For your web browsing pleasure I'm pleased to announce the following about my web application.
+* I have updated the about page to include the third party fetching of a random picture and a random quote to spice up the about page making it display something new every time. I'm hoping to find a resource that shows solely film pictures and film quotes in the future but for now it suffices.
+* I have done the front end and back end HTTP requests and sends for the uploading a footage link to the repository. This is located on my upload page. Essentially now instead of drawing from the local storage first the display repository request will grab it from the api/repository and will be uniform across the internet user's experience. Feel free to add a cool film link! If there's an error with fetching it from the api/repository then the application will look at the local storage and display the repository from there. 
+* All the back end code is found in my index.js file. This file now runs everything with express and node.js which is pretty nifty.
+* That should satisfy all the requirements for now. But I will be adding the same functionality for my chatting page at a later time. 
 
