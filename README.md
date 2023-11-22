@@ -98,3 +98,13 @@ Have you ever been enjoying a film, taking in the gorgeous visuals, and wondered
 * I have a chats collection which contains all the various chats as well as the messages contained within them.
 * The api now draws from the data base for information and then displays it when requested. 
 * Everything seems like it's running smoothly which I'm overjoyed at.
+
+## Login Deliverable
+
+### Accomplished so Far
+* I've done it! Authentication services are now in place so that people can make profiles with a username and a password that they then must input again to login with.
+* Most of the code was borrowed from the simon login, I just had to manipulate it a bit to make it work with my other code.
+* Well essentially you can create a profile, and then after you're done you can click the home page and the logout button which will delete the token that was given to you to peruse the web application. But then when you input your information again you can push login and will have access to your profile and to the services.
+* A new collection of users was created in my startup database. In these Users are the email/username, hashed password, and the token that's given.
+* The services can now only be used by someone who is logged in to their profile. Otherwise the access is unauthorized.
+* And of course all the systems are collaborating together. The database is holding the data and when it is called it is providing it to the rest of the web application. End points and whatnot are all handled. Things seem to be working pretty all right. 
