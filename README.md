@@ -89,3 +89,12 @@ Have you ever been enjoying a film, taking in the gorgeous visuals, and wondered
 * All the back end code is found in my index.js file. This file now runs everything with express and node.js which is pretty nifty.
 * That should satisfy all the requirements for now. But I will be adding the same functionality for my chatting page at a later time. 
 
+## Database Deliverable
+
+### Accomplished so Far
+* Holy crap that was such a good time! 
+* I've implemented a database using Mongo DB atlas, my web application now stores information from the user in a couple of different collections.
+* I have a repository collection which contains objects inside of which are the respective footage link, film description, and contributor's name.
+* I have a chats collection which contains all the various chats as well as the messages contained within them.
+* The api now draws from the data base for information and then displays it when requested. 
+* Everything seems like it's running smoothly which I'm overjoyed at.
