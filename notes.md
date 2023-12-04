@@ -3958,4 +3958,119 @@ curl -b cookie.txt localhost:8080/user/me
 
 
 
+## WebSocket
+
+![image](https://github.com/HyrumClawson/startup-example/assets/144285497/40af9b88-74cd-4701-87bf-a9f6095af696)
+
+HTTP is based on a client-server architecture. A client always initiates the request and the server responds. This is great if you are building a global document library connected by hyperlinks, but for many other use cases it just doesn't work. Applications for notifications, distributed task processing, peer-to-peer communication, or asynchronous events need communication that is initiated by two or more connected devices.
+
+For years, web developers created hacks to work around the limitation of the client/server model. This included solutions like having the client frequently pinging the server to see if the server had anything to say, or keeping client-initiated connections open for a very long time as the client waited for some event to happen on the server. Needless to say, none of these solutions were elegant or efficient.
+
+Finally, in 2011 the communication protocol WebSocket was created to solve this problem. The core feature of WebSocket is that it is fully duplexed. This means that after the initial connection is made from a client, using vanilla HTTP, and then upgraded by the server to a WebSocket connection, the relationship changes to a peer-to-peer connection where either party can efficiently send data at any time.
+
+
+![image](https://github.com/HyrumClawson/startup-example/assets/144285497/09b578fe-2749-4407-a13f-8c9940cf065f)
+
+WebSocket connections are still only between two parties. So if you want to facilitate a conversation between a group of users, the server must act as the intermediary. Each peer first connects to the server, and then the server forwards messages amongst the peers.
+
+![image](https://github.com/HyrumClawson/startup-example/assets/144285497/47af519a-b37a-4312-82ac-55506608d589)
+
+### Creating a WebSocket conversation
+
+JavaScript running on a browser can initiate a WebSocket connection with the browser's WebSocket API. First you create a WebSocket object by specifying the port you want to communicate on.
+
+You can then send messages with the send function, and register a callback using the onmessage function to receive messages.
+
+```
+const socket = new WebSocket('ws://localhost:9900');
+
+socket.onmessage = (event) => {
+  console.log('received: ', event.data);
+};
+
+socket.send('I am listening');
+```
+The server uses the ws package to create a WebSocketServer that is listening on the same port the browser is using. By specifying a port when you create the WebSocketServer, you are telling the server to listen for HTTP connections on that port and to automatically upgrade them to a WebSocket connection if the request has a connection: Upgrade header.
+
+When a connection is detected it calls the server's on connection callback. The server can then send messages with the send function, and register a callback using the on message function to receive messages.
+```
+const { WebSocketServer } = require('ws');
+
+const wss = new WebSocketServer({ port: 9900 });
+
+wss.on('connection', (ws) => {
+  ws.on('message', (data) => {
+    const msg = String.fromCharCode(...data);
+    console.log('received: %s', msg);
+
+    ws.send(`I heard you say "${msg}"`);
+  });
+
+  ws.send('Hello webSocket');
+});
+```
+In a later instruction we will show you how to run and debug this example.
+
+## Debugging WebSocket
+
+You can debug both sides of the WebSocket communication with VS Code to debug the server, and Chrome to debug the client. When you do this you will notice that Chrome's debugger has support specifically for working with WebSocket communication.
+![image](https://github.com/HyrumClawson/startup-example/assets/144285497/dc4b63d6-f9b5-4428-b841-11bdd5e160b1)
+
+### Debugging the server
+
+Create a directory named testWebSocket and change to that directory.
+
+Run npm init -y.
+
+Run npm install ws.
+
+Open VS Code and create a file named main.js. Paste the following code.
+
+```
+const { WebSocketServer } = require('ws');
+
+const wss = new WebSocketServer({ port: 9900 });
+
+wss.on('connection', (ws) => {
+  ws.on('message', (data) => {
+    const msg = String.fromCharCode(...data);
+    console.log('received: %s', msg);
+
+    ws.send(`I heard you say "${msg}"`);
+  });
+
+  ws.send('Hello webSocket');
+});
+```
+Set breakpoints on the ws.send lines so you can inspect the code executing.
+
+Start debugging by pressing F5. The first time you may need to choose Node.js as the debugger.
+![image](https://github.com/HyrumClawson/startup-example/assets/144285497/15009564-dee6-4345-abd5-93e63b335971)
+
+### Debugging the client
+Open the Chrome debugger by pressing F12.
+
+Paste this code into the debugger console window and press enter to execute it. Executing this code will immediately hit the server breakpoint. Take a look at what is going on and then remove the breakpoint from the server.
+```
+const socket = new WebSocket('ws://localhost:9900');
+
+socket.onmessage = (event) => {
+  console.log('received: ', event.data);
+};
+```
+Select the Network tab and then select the HTTP message that was generated by the execution of the above client code.
+
+With the HTTP message selected, you then click the Messages tab to view the WebSocket messages
+
+Send a message to the server by executing the following in the debugger console window. This will cause the second server breakpoint to hit. Explore and then remove the breakpoint from the server.
+
+```
+socket.send('I am listening');
+```
+You should see the messages in the Messages debugger window.
+
+Send some more messages and observe the communication back and forth without stopping on the breakpoints.
+![image](https://github.com/HyrumClawson/startup-example/assets/144285497/1d795e8d-9099-40cf-bf23-1146e5007c8a)
+
+
 
