@@ -108,3 +108,10 @@ Have you ever been enjoying a film, taking in the gorgeous visuals, and wondered
 * A new collection of users was created in my startup database. In these Users are the email/username, hashed password, and the token that's given.
 * The services can now only be used by someone who is logged in to their profile. Otherwise the access is unauthorized.
 * And of course all the systems are collaborating together. The database is holding the data and when it is called it is providing it to the rest of the web application. End points and whatnot are all handled. Things seem to be working pretty all right. 
+
+## WebSocket Deliverable
+
+### Accomplished so Far
+* I've included websocket capabilities on my Upload page.
+* Now  using webSockets users can see when other users are uploading links and what the titles of those links are.
+* They will also see a repository connected message when they are connected and a repository disconnected when they are not.
