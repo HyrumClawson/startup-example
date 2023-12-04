@@ -1,5 +1,54 @@
 let ArrayofFootage = [];
 
+
+
+const GameEndEvent = 'gameEnd';
+const GameStartEvent = 'gameStart';
+
+
+
+function configureWebSocket() {
+  console.log("In the configure WebSocket function");
+  const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+  this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+  this.socket.onopen = (event) => {
+    this.displayMsg('system', 'repository', 'connected');
+  };
+  this.socket.onclose = (event) => {
+    this.displayMsg('system', 'repository', 'disconnected');
+  };
+  this.socket.onmessage = async (event) => {
+    const msg = JSON.parse(await event.data.text());
+    console.log("does it make it into the onmessage part?");
+    if (msg.type === GameEndEvent) {
+      this.displayMsg('contributor', msg.from, `added ${msg.value.title} to the repository`);
+    } else if (msg.type === GameStartEvent) {
+      this.displayMsg('contributor', msg.from, `started a new game`);
+    }
+  };
+}
+
+function displayMsg(cls, from, msg) {
+  //switch the query selector to the thing in the html
+  const chatText = document.querySelector('#player-messages');
+  chatText.innerHTML =
+    `<div class="event"><span class="${cls}-event">${from}</span> ${msg}</div>` + chatText.innerHTML;
+}
+
+function broadcastEvent(from, type, value) {
+  console.log("in the broadcast event");
+  const event = {
+    from: from,
+    type: type,
+    value: value,
+  };
+  // might need to include a this before the socket
+  this.socket.send(JSON.stringify(event));
+}
+
+
+
+
 // this code was just meant to check if the object was actually being added to the array
 function printToConsole () {
     let array = JSON.parse(localStorage.getItem("array"));
@@ -9,7 +58,9 @@ function printToConsole () {
       console.log(element.description)
     })
   }
+  
 
+  window.addEventListener("load", configureWebSocket() ); 
 // essentially make an array
 
 // then create the object
@@ -23,6 +74,8 @@ function printToConsole () {
 
 async function upload() {
   console.log("in upload");
+  // calling the configure web socket function
+  //configureWebSocket();
     const urlEl = document.querySelector("#url");
     const titleEl = document.querySelector("#title");
     const descriptionEl = document.querySelector("#description")
@@ -47,6 +100,12 @@ async function upload() {
       });
       console.log(response);
       console.log("Got past the post");
+
+
+      // Let other contributors know you've contributed 
+      //you might have to change up the footageInfo thing
+      // might have to come back and fix this 
+      this.broadcastEvent(localStorage.getItem("userName"), GameEndEvent, footageInfo);
 
       // Store what the service gave us as the repository
 
@@ -78,8 +137,11 @@ async function upload() {
       
     }
    
-
-   window.location.href = "upload.html";
+//potentially fixx this 
+   //window.location.href = "upload.html";
+  document.querySelector("#url").value= "";
+  document.querySelector("#title").value="";
+  document.querySelector("#description").value="";
 
   }
 
@@ -139,7 +201,51 @@ async function upload() {
 
 
   }
-  
+
+
+
+
+ // Functionality for peer communication using WebSocket
+ // somethings up bruh need to fix this.. 
+// function webStuff () {
+  // function configureWebSocket() {
+  //   const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+  //   this.socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
+  //   this.socket.onopen = (event) => {
+  //     this.displayMsg('system', 'repository', 'connected');
+  //   };
+  //   this.socket.onclose = (event) => {
+  //     this.displayMsg('system', 'repository', 'disconnected');
+  //   };
+  //   this.socket.onmessage = async (event) => {
+  //     const msg = JSON.parse(await event.data.text());
+  //     if (msg.type === GameEndEvent) {
+  //       this.displayMsg('contributor', msg.from, `added ${msg.value.score} to the repository`);
+  //     } else if (msg.type === GameStartEvent) {
+  //       this.displayMsg('contributor', msg.from, `started a new game`);
+  //     }
+  //   };
+  // }
+
+  // function displayMsg(cls, from, msg) {
+  //   const chatText = document.querySelector('#player-messages');
+  //   chatText.innerHTML =
+  //     `<div class="event"><span class="${cls}-event">${from}</span> ${msg}</div>` + chatText.innerHTML;
+  // }
+
+  // function broadcastEvent(from, type, value) {
+  //   const event = {
+  //     from: from,
+  //     type: type,
+  //     value: value,
+  //   };
+  //   // might need to include a this before the socket
+  //   socket.send(JSON.stringify(event));
+  // }
+// }
+
+
+ // const webSocket = new webStuff();
 
 
   

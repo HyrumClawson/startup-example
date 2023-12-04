@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const app = express();
 const DB = require('./database.js');
+const { peerProxy } = require('./peerProxy.js');
 
 const authCookieName = 'token';
 
@@ -91,9 +92,6 @@ secureApiRouter.use(async (req, res, next) => {
 
 
 
-
-
-
 //get Repository of footage links
 secureApiRouter.get('/repository', async (req, res) => {
   const repository = await DB.getRepository();
@@ -153,11 +151,16 @@ function setAuthCookie(res, authToken) {
 }
 
   
-  app.listen(port, () => {
+  // app.listen(port, () => {
+  //   console.log(`Listening on port ${port}`);
+  // });
+
+
+  const httpService = app.listen(port, () => {
     console.log(`Listening on port ${port}`);
   });
 
-
+  peerProxy(httpService);
 
 
 
