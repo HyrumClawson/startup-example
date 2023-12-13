@@ -115,3 +115,10 @@ Have you ever been enjoying a film, taking in the gorgeous visuals, and wondered
 * I've included websocket capabilities on my Upload page.
 * Now  using webSockets users can see when other users are uploading links and what the titles of those links are.
 * They will also see a repository connected message when they are connected and a repository disconnected when they are not.
+
+## React Deliverable
+
+### Accomplished so Far
+* What an absolute fun time that was!!! Definitely a bit nerve wracking but I've got everything bundled and whatnot with react for your browsing pleasure! Enjoy!!
+* No new features, just everything uses react to display instead of DOM manipulation. I did add some CSS so that when the link repository displays it's surrounded by a different blue. Also now the descriptions display along with the link to the footage clip.
+* you can switch between chats still. It's just displaying the wrong messages when you select the chat topic. But I know what's wrong and I'm going to fix it soon! 
