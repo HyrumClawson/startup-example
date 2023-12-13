@@ -4,8 +4,12 @@ main {
 
 }
 
+.stuff {
+  flex-direction: column;
+}
+
 .title {
-    color: #943126 ;
+  color: #5F9EA0;
 }
 
 .padding {
@@ -31,4 +35,15 @@ main {
     color: white;
     padding-top: 0.25em;
     opacity: 0.7;
+  }
+
+  .divStyle{
+    background-color: #6F8FAF;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 5%;
+    border-top-left-radius: 25px; /* <----- top-left corner round      */
+    border-top-right-radius: 30px; /* <----- top-right corner round     */
+    border-bottom-right-radius: 40px; /* <----- bottom-right corner round  */
+    border-bottom-left-radius: 50px; /* <----- bottom-left corner round   */
   }

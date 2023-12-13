@@ -8,9 +8,15 @@ main {
     color: white;
 
 }
+.styling {
+    background-color: #34495E;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 
 .title {
-    color: #943126 ;
+    color: #5F9EA0;
 }
 
 .padding {
